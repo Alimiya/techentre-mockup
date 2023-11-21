@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Table</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Top Table</h2>
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <button class="btn btn-secondary" onclick="window.location.href='/login'">Login</button>
+            <button class="btn btn-secondary" onclick="window.location.href='/register'">Register</button>
+            <button id="sortChallenge" class="btn btn-primary">Sort by Challenge ranking</button>
+            <button id="sortCompetitive" class="btn btn-primary">Sort by Competitive ranking</button>
+        </div>
+    </div>
+    <table class="table table-bordered" id="userTable">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th id="challengeHeader">Challenge ranking</th>
+            <th id="competitiveHeader">Competitive ranking</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (let i = 0; i < users.length; i++) { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= users[i].fname %></td>
+                <td><%= users[i].lname %></td>
+                <td class="trank"><%= users[i].trank %></td>
+                <td class="crank"><%= users[i].crank %></td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const sortTable = (column) => {
+        const table = document.getElementById('userTable');
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        // Get the index of the column
+        const columnIndex = Array.from(table.querySelectorAll('th')).findIndex(th => th.id === column);
+
+        // Sort the rows based on the selected column
+        rows.sort((a, b) => {
+            const aValue = parseInt(a.querySelectorAll('td')[columnIndex].textContent);
+            const bValue = parseInt(b.querySelectorAll('td')[columnIndex].textContent);
+
+            return aValue - bValue;
+        });
+
+        // Reverse the order if already in ascending order
+        if (table.getAttribute('data-sort-order') === 'asc') {
+            rows.reverse();
+            table.setAttribute('data-sort-order', 'desc');
+        } else {
+            table.setAttribute('data-sort-order', 'asc');
+        }
+
+        // Re-append sorted rows to the table
+        tbody.innerHTML = '';
+        rows.forEach(row => tbody.appendChild(row));
+    };
+
+    document.getElementById('sortChallenge').addEventListener('click', () => sortTable('challengeHeader'));
+    document.getElementById('sortCompetitive').addEventListener('click', () => sortTable('competitiveHeader'));
+</script>
+
+</body>
+</html>

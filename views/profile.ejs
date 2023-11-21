@@ -1,0 +1,31 @@
+<!-- views/profile.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">User Profile</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Profile Information</h5>
+            <p class="card-text"><strong>First Name:</strong> <%= user.fname %></p>
+            <p class="card-text"><strong>Last Name:</strong> <%= user.lname %></p>
+            <p class="card-text"><strong>Email:</strong> <%= user.email %></p>
+            <p class="card-text"><strong>Challenge rank:</strong> <%= user.trank %></p>
+            <p class="card-text"><strong>Competitive rank:</strong> <%= user.crank %></p>
+            <a href="/ranking" class="btn btn-primary">Go to Ranking Page</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
